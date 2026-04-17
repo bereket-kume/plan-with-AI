@@ -6,8 +6,8 @@ import {
   analyzeWorkload,
   getPerformanceSummary,
   rescheduleMissed,
-} from "@plan-with-ai/feature-system";
-import type { ScheduledSession, PerformanceRecord } from "@plan-with-ai/feature-system";
+} from "../feature-system/src";
+import type { ScheduledSession, PerformanceRecord } from "../feature-system/src";
 import { Button } from "@plan-with-ai/ui-components";
 import { Card } from "@plan-with-ai/ui-components";
 import { ProgressBar } from "@plan-with-ai/ui-components";
