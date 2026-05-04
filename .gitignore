@@ -1,0 +1,36 @@
+# Dependencies
+node_modules
+.pnp
+.pnp.js
+
+# Build outputs
+dist
+.next
+out
+build
+*.tsbuildinfo
+
+# Turbo
+.turbo
+
+# Env
+.env
+.env*.local
+
+# Logs / debug
+npm-debug.log*
+pnpm-debug.log*
+*.log
+
+# Editor / OS
+.DS_Store
+*.swp
+.idea
+.vscode/*
+!.vscode/extensions.json
+
+# Vite
+*.local
+
+# Test
+coverage
