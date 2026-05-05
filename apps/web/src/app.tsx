@@ -1,4 +1,7 @@
 import { Button } from "@plan-with-ai/ui-components";
+import { formatGreeting } from "@plan-with-ai/utils";
+import Dashboard from '../../../packages/feature-student/src/pages/Dashboardpage';
+import './styles.css';
 import { StudentDashboard } from "@plan-with-ai/feature-student";
 import { useEffect, useState, type FormEvent, type ReactNode } from "react";
 
