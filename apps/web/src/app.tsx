@@ -1,4 +1,5 @@
 import { Button } from "@plan-with-ai/ui-components";
+import { StudentDashboard } from "@plan-with-ai/feature-student";
 import { useEffect, useState, type FormEvent, type ReactNode } from "react";
 
 type UserRole = "user" | "admin";
@@ -216,6 +217,7 @@ function StatusPill({
 export function App() {
   const [booting, setBooting] = useState(true);
   const [authMode, setAuthMode] = useState<"login" | "register">("login");
+  const [dashboardTab, setDashboardTab] = useState<"planner" | "profile">("planner");
   const [authForm, setAuthForm] = useState(emptyAuthForm);
   const [profileForm, setProfileForm] = useState(emptyProfileForm);
   const [passwordForm, setPasswordForm] = useState(emptyPasswordForm);
@@ -520,6 +522,27 @@ export function App() {
               <div className="skeleton skeleton--line" />
             </Card>
           ) : currentUser ? (
+            <>
+              <div className="dashboard-tabs">
+                <Button
+                  type="button"
+                  className={`button button--toggle ${dashboardTab === "planner" ? "is-active" : ""}`}
+                  onClick={() => setDashboardTab("planner")}
+                >
+                  Study Planner
+                </Button>
+                <Button
+                  type="button"
+                  className={`button button--toggle ${dashboardTab === "profile" ? "is-active" : ""}`}
+                  onClick={() => setDashboardTab("profile")}
+                >
+                  Profile
+                </Button>
+              </div>
+
+              {dashboardTab === "planner" ? (
+                <StudentDashboard />
+              ) : (
             <div className="dashboard-grid">
               <Card className="profile-card profile-card--summary">
                 <div className="profile-card__avatar">
@@ -750,6 +773,8 @@ export function App() {
                 ) : null}
               </div>
             </div>
+              )}
+            </>
           ) : (
             <div className="auth-grid">
               <Card className="auth-card">
@@ -865,7 +890,7 @@ export function App() {
               </Card>
             </div>
           )}
-        </div>
+        </>
       </div>
     </main>
   );
