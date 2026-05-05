@@ -10,6 +10,14 @@ const monorepoRoot = path.resolve(
 
 export default defineConfig({
   plugins: [react()],
+  server: {
+    proxy: {
+      "/api": {
+        target: "http://localhost:4000",
+        changeOrigin: true,
+      },
+    },
+  },
   resolve: {
     dedupe: ["react", "react-dom"],
     alias: {
