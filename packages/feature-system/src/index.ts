@@ -65,34 +65,37 @@ export function generateSchedule(
   );
 
   const sessions: ScheduledSession[] = [];
-  // Track hours already assigned per day
   const dayUsage: Record<string, number> = {};
 
   const assignHour = (date: string): number => {
     const used = dayUsage[date] ?? 0;
-    return 9 + used; // start at 9:00 AM
+    return 9 + used;
   };
 
   for (const task of sorted) {
-    const remaining = task.estimatedHours - task.completedHours;
+    let remaining = task.estimatedHours - task.completedHours;
     const daysAvailable = Math.max(1, daysBetween(startDate, task.deadline));
-    const chunks = splitHoursAcrossDays(remaining, daysAvailable, dailyStudyHours);
 
-    for (let i = 0; i < chunks.length; i++) {
-      const date = addDays(startDate, i);
-      const used = dayUsage[date] ?? 0;
-      if (used >= dailyStudyHours) continue;
+    for (let dayIndex = 0; dayIndex < daysAvailable && remaining > 0; dayIndex++) {
+      const date = addDays(startDate, dayIndex);
+      let available = dailyStudyHours - (dayUsage[date] ?? 0);
 
-      const duration = Math.min(chunks[i], dailyStudyHours - used);
-      sessions.push({
-        taskId: task.id,
-        subject: task.subject,
-        title: task.title,
-        date,
-        startHour: assignHour(date),
-        durationHours: duration,
-      });
-      dayUsage[date] = used + duration;
+      while (available > 0 && remaining > 0) {
+        const duration = Math.min(remaining, available);
+        sessions.push({
+          taskId: task.id,
+          subject: task.subject,
+          title: task.title,
+          date,
+          startHour: assignHour(date),
+          durationHours: duration,
+        });
+
+        const updatedUsed = (dayUsage[date] ?? 0) + duration;
+        dayUsage[date] = updatedUsed;
+        remaining -= duration;
+        available = dailyStudyHours - updatedUsed;
+      }
     }
   }
 

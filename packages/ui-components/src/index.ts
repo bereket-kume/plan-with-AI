@@ -1,4 +1,4 @@
-export { Button, type ButtonProps } from "./button.js";
-export { Card, type CardProps } from "./card.js";
-export { ProgressBar, type ProgressBarProps } from "./progress-bar.js";
-export { Input, type InputProps } from "./input.js";
+export { Button, type ButtonProps } from "./button.tsx";
+export { Card, type CardProps } from "./card.tsx";
+export { ProgressBar, type ProgressBarProps } from "./progress-bar.tsx";
+export { Input, type InputProps } from "./input.tsx";
